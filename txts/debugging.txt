@@ -1,0 +1,10 @@
+It’s not at all hard to get started debugging with print-statements,
+and that’s why they’re our first tool for finding and fixing errors.
+But as your scripts get longer and more complex, you’ll long for better
+tools. And several exist for finding design and subtle coding errors,
+which we’ll cover in the next two chapters. In Chapter 15, we’ll build
+a runtime debugging tool, which gives you the functionality of debugging
+print-statements (and more) without you having to edit and rerun your
+script. In Chapter 16, we’ll learn that it is possible, using static
+analysis tools, to find some of your script’s coding errors without
+editing or running it.
