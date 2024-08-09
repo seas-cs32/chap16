@@ -1,6 +1,7 @@
 This directory contains everything needed for
 **Chapter 16 (Catch Them Early)** in
-*Computational Thinking and Problem Solving*.
+[*Computational Thinking and Problem Solving (CTPS)*](https://profsmith89.github.io/ctps/ctps.html)
+by Michael D. Smith.
 
 `bookshelf1-anno.py`: A copy of `bookshelf1.py` from Chapter 3
 with the addition of type hints, which demonstrates that difficulty
@@ -39,7 +40,7 @@ doesn't consider type information at runtime.
 `equal2.c`: Another version of `equal.c` with the variable
 declaration separated from the variable initialization.
 
-`fun.c`: A simple C program that I use to demonstrate compiling
+`fun.c`: A simple C program used to demonstrate compiling
 to an executable.
 
 `txts/debugging.txt`: Input used in `emdash.py` example.
