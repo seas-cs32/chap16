@@ -1,5 +1,5 @@
 /* chap16/equal2.c */
-/* NOT EXECUTABLE since it C code, not Python */
+/* NOT EXECUTABLE since it is C code, not Python */
 #include <stdio.h>
 
 int main(void) {
