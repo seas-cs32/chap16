@@ -1,8 +1,12 @@
 ### chap16/emdash-fixed.py
+"""Limiting assumption: This script works with paragraphs
+in which all sentences end with periods, and no period
+characters are used for any other purpose."""
 import sys
 
 # Terminal colors
 C_RESET = '\033[0m'
+C_RED = '\033[31m'
 C_BLUE = '\033[34m'
 
 def main():
@@ -17,10 +21,10 @@ def main():
 
     # Print out instructions
     print( \
-"""INSTRUCTIONS:
-Let's look at each sentence in this paragraph, and
-you tell me if you want me to surround a phrase with
-em dashes rather that the existing commas.""")
+"""**INSTRUCTIONS**
+As you look at each sentence in this paragraph, tell me
+via a phrase index if you want to surround that phrase
+with em dashes rather than the existing commas.""")
 
     # Iterate through each candidate sentence in text.
     # A sentence is a candidate only if it has three
@@ -28,30 +32,25 @@ em dashes rather that the existing commas.""")
     sentences = paragraph.split('.')
     sentences = sentences[:-1]  # last item isn't a sentence
     for i, s in enumerate(sentences):
-        # Split the sentence into numbered phrases
+        # Split the sentence into phrases
         phrases = s.split(',')
         if len(phrases) == 1 or len(phrases) == 2:
             # Nothing to do
             continue
 
-        print()
+        print()   # blank line in output
 
-        # Print the phrases and ask the user
+        # Number and print the phrases
         for j, p in enumerate(phrases):
             if j != 0 and j != len(phrases) - 1:
                 print(f'{C_BLUE}{j+1}: {p}{C_RESET}')
             else:
                 print(f'{j+1}: {p}')
         
-        ans = int(input(f'\nWhich {C_BLUE}blue{C_RESET} phrase, \
-if any, do you want to set off with em dashes? '))
-        if ans == 0:
+        # Grab a phrase index from the user, if any
+        a = get_phrase_index(phrases)
+        if a == 0:
             continue     # Leave the sentence alone
-        elif ans == 1 or ans == len(phrases):
-            print("That phrase wasn't blue...skipping on.")
-            continue
-        else:
-            a = ans - 1  # Turn ans into an index
 
         # Add back the comma on the unaffected phrases while
         # building the sentence prefix and suffix.
@@ -69,10 +68,10 @@ if any, do you want to set off with em dashes? '))
                 s_suffix += phrases[j]
 
         # Add the em dashes to the affected phrase and remove
-        # the leading spaces in it and the new_suffix.
+        # the leading spaces in it and the s_suffix.
         new_s = s_prefix + '--' + phrases[a].strip() + '--' + s_suffix.strip()
 
-        # Put the updated sentence back into the sentences list
+        # Put the edited sentence back into the sentences list
         sentences[i] = new_s
 
     # Add back the periods and print out the new paragraph
@@ -80,6 +79,28 @@ if any, do you want to set off with em dashes? '))
         sentences[i] += '.'
     print('\nNew paragraph:')
     print(''.join(sentences))
+
+def get_phrase_index(phrases):
+    prompt = f'\nWhich {C_BLUE}blue{C_RESET} phrase do you want to set off with em dashes? Enter 0 for none: '
+
+    # Keep asking until we get a good answer. `0` says do nothing
+    # to the sentence. Remember that the user sees a count, not an
+    # index: `1` and `len(phrases)` are the first and last phrases. 
+    while True:
+        try:
+            ans = int(input(prompt))
+            if ans == 0:
+                return ans     # Leave the sentence alone
+            elif ans == 1 or ans == len(phrases):
+                print("That phrase wasn't blue...skipping on.")
+                return 0       # Leave the sentence alone
+            elif ans < 1 or ans > len(phrases):
+                print(f"{C_RED}Index out of bounds:{C_RESET} Please enter a blue number or 0.")
+            else:
+                phrase_index = ans - 1  # Turn ans into an index
+                return phrase_index
+        except ValueError:
+            print(f"{C_RED}Not a number:{C_RESET} Please enter a blue number or 0.")
 
 if __name__ == '__main__':
     main()

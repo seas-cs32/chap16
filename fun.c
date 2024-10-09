@@ -1,5 +1,4 @@
 /* chap16/fun.c */
-/* NOT EXECUTABLE since it C code, not Python */
 #include <stdio.h>
 #include <string.h>
 
