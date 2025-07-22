@@ -4,7 +4,7 @@
 from typing import Sequence
 
 def my_replace(s: Sequence, old: Sequence, new: Sequence) -> Sequence:
-    """Returns a string replacing all occurrences of old with new."""
+    """Returns a string replacing all instances of old with new."""
     i: int = 0           # tracks where we are in the input string
     j: int = len(old)    # skip-ahead amount for index calculations
     new_s: Sequence = s[0:0]  # the new string we're building
